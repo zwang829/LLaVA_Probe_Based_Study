@@ -1,0 +1,538 @@
+{
+  "schema_version": "1.0",
+  "benchmark": "cross_image_hallucination_probe",
+  "run_id": "llava_rlhf_sft_rlhf",
+  "models": [
+    {
+      "key": "sft",
+      "name": "LLaVA-RLHF SFT+",
+      "path": "../../LLaVA-RLHF/models/LLaVA-RLHF-7B-v1.5-224/sft_model"
+    },
+    {
+      "key": "rlhf",
+      "name": "LLaVA-RLHF RLHF",
+      "path": "../../LLaVA-RLHF/models/LLaVA-RLHF-7B-v1.5-224/rlhf_lora_adapter_model"
+    }
+  ],
+  "probes": [
+    {
+      "image": "test.jpg",
+      "id": "T1",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Keyboard is plausible in an office scene but is not present"
+    },
+    {
+      "image": "test.jpg",
+      "id": "T2",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Exactly one tissue box; SFT+ answered correctly, RLHF once regressed to 2"
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C1",
+      "type": "existence",
+      "question": "Is there a coffee machine in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Coffee machine is common in kitchens but is not in the image"
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a banana in the bowl? Answer yes or no.",
+      "gt": "no",
+      "note": "Fruit bowl contains only apples and pears"
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C3",
+      "type": "relation",
+      "question": "Is the bowl of fruit to the left or right of the sink? Answer left or right.",
+      "gt": "left",
+      "note": "Fruit bowl is to the left of the sink"
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E1",
+      "type": "existence",
+      "question": "Is there a keyboard on the desk? Answer yes or no.",
+      "gt": "no",
+      "note": "Keyboard is typical desk clutter but is not present"
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E2",
+      "type": "existence",
+      "question": "Is there a computer monitor in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Monitor is common on desks but is not in the image"
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E3",
+      "type": "count",
+      "question": "How many cups are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Only one gray mug on the desk"
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K1",
+      "type": "existence",
+      "question": "Is there a cat in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Drawing shows a dog, not a cat"
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K2",
+      "type": "count",
+      "question": "How many people are in this image? Answer with a number.",
+      "gt": "5",
+      "note": "Five stick-figure people"
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K3",
+      "type": "attribute",
+      "question": "What color is the dress of the person on the far left? Answer with one color.",
+      "gt": "yellow",
+      "note": "Leftmost figure wears a yellow dress"
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O1",
+      "type": "relation",
+      "question": "Is the paper boat in front of or behind the pen holder? Answer front or behind.",
+      "gt": "front",
+      "note": "Paper boat is in front of the pen holder"
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O2",
+      "type": "relation",
+      "question": "Is the pink pen in front of or behind the paper boat? Answer front or behind.",
+      "gt": "front",
+      "note": "Pink pen is in front of the paper boat"
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O3",
+      "type": "existence",
+      "question": "Is there a yellow sticky note on the wall? Answer yes or no.",
+      "gt": "yes",
+      "note": "Yellow sticky note is visible on the background wall"
+    },
+    {
+      "image": "abstract_painting.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is there a tree in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure abstract painting with no tree"
+    },
+    {
+      "image": "abstract_painting.jpg",
+      "id": "A2",
+      "type": "open",
+      "question": "Describe this image in detail.",
+      "gt": "abstract",
+      "note": "Open-ended: check whether the model invents natural-scene objects"
+    }
+  ],
+  "per_probe": [
+    {
+      "image": "test.jpg",
+      "id": "T1",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Keyboard is plausible in an office scene but is not present",
+      "answers": {
+        "sft": "Yes",
+        "rlhf": "Yes, there is a keyboard in this image. The keyboard is placed in front of the Kleenex box."
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "test.jpg",
+      "id": "T2",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Exactly one tissue box; SFT+ answered correctly, RLHF once regressed to 2",
+      "answers": {
+        "sft": "1",
+        "rlhf": "There are two tissue boxes in this image."
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C1",
+      "type": "existence",
+      "question": "Is there a coffee machine in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Coffee machine is common in kitchens but is not in the image",
+      "answers": {
+        "sft": "No",
+        "rlhf": "No, there is no coffee machine in this image. The image features a white countertop with a bowl of fruit, including apples and pears,"
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a banana in the bowl? Answer yes or no.",
+      "gt": "no",
+      "note": "Fruit bowl contains only apples and pears",
+      "answers": {
+        "sft": "Yes",
+        "rlhf": "Yes"
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "clean_counter.jpg",
+      "id": "C3",
+      "type": "relation",
+      "question": "Is the bowl of fruit to the left or right of the sink? Answer left or right.",
+      "gt": "left",
+      "note": "Fruit bowl is to the left of the sink",
+      "answers": {
+        "sft": "Left",
+        "rlhf": "The bowl of fruit is to the left of the sink."
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E1",
+      "type": "existence",
+      "question": "Is there a keyboard on the desk? Answer yes or no.",
+      "gt": "no",
+      "note": "Keyboard is typical desk clutter but is not present",
+      "answers": {
+        "sft": "No",
+        "rlhf": "No"
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E2",
+      "type": "existence",
+      "question": "Is there a computer monitor in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Monitor is common on desks but is not in the image",
+      "answers": {
+        "sft": "No",
+        "rlhf": "No, there is no computer monitor in this image. The image features a white desk with a cup of coffee, a potted plant, and a v"
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "empty_desk.jpg",
+      "id": "E3",
+      "type": "count",
+      "question": "How many cups are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Only one gray mug on the desk",
+      "answers": {
+        "sft": "1",
+        "rlhf": "There are two cups in this image."
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K1",
+      "type": "existence",
+      "question": "Is there a cat in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Drawing shows a dog, not a cat",
+      "answers": {
+        "sft": "No",
+        "rlhf": "No, there is no cat in this image. The image features a group of people standing on a beach, with a dog nearby. The focus of the image"
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K2",
+      "type": "count",
+      "question": "How many people are in this image? Answer with a number.",
+      "gt": "5",
+      "note": "Five stick-figure people",
+      "answers": {
+        "sft": "6",
+        "rlhf": "There are six people in this image."
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "kids_drawing.jpg",
+      "id": "K3",
+      "type": "attribute",
+      "question": "What color is the dress of the person on the far left? Answer with one color.",
+      "gt": "yellow",
+      "note": "Leftmost figure wears a yellow dress",
+      "answers": {
+        "sft": "Pink",
+        "rlhf": "Yellow"
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O1",
+      "type": "relation",
+      "question": "Is the paper boat in front of or behind the pen holder? Answer front or behind.",
+      "gt": "front",
+      "note": "Paper boat is in front of the pen holder",
+      "answers": {
+        "sft": "Behind",
+        "rlhf": "The paper boat is in front of the pen holder."
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O2",
+      "type": "relation",
+      "question": "Is the pink pen in front of or behind the paper boat? Answer front or behind.",
+      "gt": "front",
+      "note": "Pink pen is in front of the paper boat",
+      "answers": {
+        "sft": "Behind",
+        "rlhf": "The pink pen is in front of the paper boat."
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "wrong",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "objects_overlapping.jpg",
+      "id": "O3",
+      "type": "existence",
+      "question": "Is there a yellow sticky note on the wall? Answer yes or no.",
+      "gt": "yes",
+      "note": "Yellow sticky note is visible on the background wall",
+      "answers": {
+        "sft": "Yes",
+        "rlhf": "Yes, there is a yellow sticky note on the wall."
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "wrong"
+      }
+    },
+    {
+      "image": "abstract_painting.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is there a tree in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure abstract painting with no tree",
+      "answers": {
+        "sft": "No",
+        "rlhf": "No, there is no tree in this image. The image features a close-up of a colorful, abstract painting with a flower in the center. The"
+      },
+      "correct": {
+        "sft": true,
+        "rlhf": true
+      },
+      "verdict": {
+        "sft": "correct",
+        "rlhf": "correct"
+      }
+    },
+    {
+      "image": "abstract_painting.jpg",
+      "id": "A2",
+      "type": "open",
+      "question": "Describe this image in detail.",
+      "gt": "abstract",
+      "note": "Open-ended: check whether the model invents natural-scene objects",
+      "answers": {
+        "sft": "The image is a colorful and abstract painting, reminiscent of the style of Van Gogh. It features a large flower with a multitude of colors, including yellow, pink, purple, and orange. The flower is set against a backdrop of blue and green hues, creating a vibrant and lively atmosphere. The painting is dynamic and full of energy, capturing the essence of the flower's beauty in a bold and creative manner.",
+        "rlhf": "The image is a close-up of a colorful, abstract painting. The painting features a variety of colors, including yellow, pink, and purple, creating a vibrant and lively atmosphere. The colors are swirling and blending together, giving the painting a dynamic and energetic appearance.\n\nThe painting is set against a backdrop of a blue sky, which adds contrast and depth to the artwork. The combination of the vivid colors and the contrasting background creates a visually striking and captivating piece of art."
+      },
+      "correct": {
+        "sft": false,
+        "rlhf": false
+      },
+      "verdict": {
+        "sft": "natural_object_hallucination",
+        "rlhf": "natural_object_hallucination"
+      }
+    }
+  ],
+  "summary": {
+    "total": 16,
+    "by_model": {
+      "sft": {
+        "correct": 9,
+        "wrong": 7,
+        "accuracy": 0.5625,
+        "open_halluc": 1,
+        "open_no_halluc": 0,
+        "by_type": {
+          "existence": {
+            "correct": 6,
+            "wrong": 2
+          },
+          "count": {
+            "correct": 2,
+            "wrong": 1
+          },
+          "relation": {
+            "correct": 1,
+            "wrong": 2
+          },
+          "attribute": {
+            "correct": 0,
+            "wrong": 1
+          },
+          "open": {
+            "correct": 0,
+            "wrong": 1
+          }
+        }
+      },
+      "rlhf": {
+        "correct": 9,
+        "wrong": 7,
+        "accuracy": 0.5625,
+        "open_halluc": 1,
+        "open_no_halluc": 0,
+        "by_type": {
+          "existence": {
+            "correct": 5,
+            "wrong": 3
+          },
+          "count": {
+            "correct": 0,
+            "wrong": 3
+          },
+          "relation": {
+            "correct": 3,
+            "wrong": 0
+          },
+          "attribute": {
+            "correct": 1,
+            "wrong": 0
+          },
+          "open": {
+            "correct": 0,
+            "wrong": 1
+          }
+        }
+      }
+    },
+    "pairwise": {
+      "both_correct": 6,
+      "both_wrong": 3,
+      "sft_better": 3,
+      "rlhf_better": 3
+    }
+  }
+}

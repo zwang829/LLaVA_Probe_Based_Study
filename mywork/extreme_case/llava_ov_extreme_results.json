@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0",
+  "benchmark": "extreme_ood_probe",
+  "run_id": "llava_ov_extreme",
+  "models": [
+    {
+      "key": "llava_ov",
+      "name": "LLaVA-OneVision-1.5-8B-Instruct",
+      "path": "/data/workspaces/zwang829/workspace/algorithm/LLaVA_RLHF/LLaVA-RLHF/models/LLaVA-OneVision-1.5-8B-Instruct"
+    }
+  ],
+  "probes": [
+    {
+      "image": "pure_noise.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is this a photograph of a real scene? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure noise has no real scene; checks scene fabrication on zero semantics"
+    },
+    {
+      "image": "pure_noise.jpg",
+      "id": "A2",
+      "type": "qualitative",
+      "question": "Describe this image in detail.",
+      "gt": "noise",
+      "note": "Qualitative only: inspect whether noise is narrativized into objects (not auto-scored)"
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B1",
+      "type": "attribute",
+      "question": "What color is this? Answer with one word.",
+      "gt": "blue",
+      "note": "Flat steelblue field; basic color sanity check"
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B2",
+      "type": "existence",
+      "question": "Is there a sky in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Solid color must not be projected into a sky scene"
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C1",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Light noise on test.jpg; count should remain 1"
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Noisy office scene; keyboard context trap should stay negative"
+    },
+    {
+      "image": "geometric_circle.jpg",
+      "id": "D1",
+      "type": "existence",
+      "question": "Is this a drawing of an animal? Answer yes or no.",
+      "gt": "no",
+      "note": "Simple circle; checks sun/animal shape priors"
+    }
+  ],
+  "per_probe": [
+    {
+      "image": "pure_noise.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is this a photograph of a real scene? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure noise has no real scene; checks scene fabrication on zero semantics",
+      "answers": {
+        "llava_ov": "No, this is not a photograph of a real scene. It appears to be an image with a lot of noise and interference, which could be the result of"
+      },
+      "correct": {
+        "llava_ov": true
+      },
+      "verdict": {
+        "llava_ov": "correct"
+      }
+    },
+    {
+      "image": "pure_noise.jpg",
+      "id": "A2",
+      "type": "qualitative",
+      "question": "Describe this image in detail.",
+      "gt": "noise",
+      "note": "Qualitative only: inspect whether noise is narrativized into objects (not auto-scored)",
+      "answers": {
+        "llava_ov": "The image is a digital representation of what appears to be static or noise, commonly seen on analog television screens when no signal is received. It consists of a multitude of small, multicolored dots that create a pattern resembling the grainy texture one might associate with old film photography or the visual interference experienced on older TV sets. The colors vary across the spectrum, including shades of red, green, blue, and yellow, among others, giving it a somewhat pixelated appearance. There are no discernible shapes or objects within the image; it is entirely composed of these random colored specks. The style of the image is abstract and does not"
+      },
+      "correct": {
+        "llava_ov": null
+      },
+      "verdict": {
+        "llava_ov": "qualitative"
+      }
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B1",
+      "type": "attribute",
+      "question": "What color is this? Answer with one word.",
+      "gt": "blue",
+      "note": "Flat steelblue field; basic color sanity check",
+      "answers": {
+        "llava_ov": "blue"
+      },
+      "correct": {
+        "llava_ov": true
+      },
+      "verdict": {
+        "llava_ov": "correct"
+      }
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B2",
+      "type": "existence",
+      "question": "Is there a sky in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Solid color must not be projected into a sky scene",
+      "answers": {
+        "llava_ov": "Yes"
+      },
+      "correct": {
+        "llava_ov": false
+      },
+      "verdict": {
+        "llava_ov": "wrong"
+      }
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C1",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Light noise on test.jpg; count should remain 1",
+      "answers": {
+        "llava_ov": "1"
+      },
+      "correct": {
+        "llava_ov": true
+      },
+      "verdict": {
+        "llava_ov": "correct"
+      }
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Noisy office scene; keyboard context trap should stay negative",
+      "answers": {
+        "llava_ov": "No"
+      },
+      "correct": {
+        "llava_ov": true
+      },
+      "verdict": {
+        "llava_ov": "correct"
+      }
+    },
+    {
+      "image": "geometric_circle.jpg",
+      "id": "D1",
+      "type": "existence",
+      "question": "Is this a drawing of an animal? Answer yes or no.",
+      "gt": "no",
+      "note": "Simple circle; checks sun/animal shape priors",
+      "answers": {
+        "llava_ov": "No, this is not a drawing of an animal. It is a simple black circle on a white background."
+      },
+      "correct": {
+        "llava_ov": true
+      },
+      "verdict": {
+        "llava_ov": "correct"
+      }
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "scored_total": 6,
+    "by_model": {
+      "llava_ov": {
+        "correct": 5,
+        "wrong": 1,
+        "accuracy": 0.8333,
+        "qualitative_ids": [
+          "A2"
+        ],
+        "by_type": {
+          "existence": {
+            "correct": 3,
+            "wrong": 1
+          },
+          "attribute": {
+            "correct": 1,
+            "wrong": 0
+          },
+          "count": {
+            "correct": 1,
+            "wrong": 0
+          }
+        }
+      }
+    }
+  }
+}

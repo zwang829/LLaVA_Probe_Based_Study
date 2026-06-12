@@ -1,0 +1,13 @@
+LLaVA/
+LLaVA-RLHF/
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+venv/
+conda_envs/
+.env
+
+*.bin
+*.pth
+*.safetensors

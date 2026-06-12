@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.0",
+  "benchmark": "extreme_ood_probe",
+  "run_id": "llava_rlhf_extreme",
+  "models": [
+    {
+      "key": "llava_rlhf",
+      "name": "LLaVA-RLHF (SFT+ + RLHF LoRA)",
+      "path": "/data/workspaces/zwang829/workspace/algorithm/LLaVA_RLHF/LLaVA-RLHF/models/LLaVA-RLHF-7B-v1.5-224/rlhf_lora_adapter_model"
+    }
+  ],
+  "probes": [
+    {
+      "image": "pure_noise.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is this a photograph of a real scene? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure noise has no real scene; checks scene fabrication on zero semantics"
+    },
+    {
+      "image": "pure_noise.jpg",
+      "id": "A2",
+      "type": "qualitative",
+      "question": "Describe this image in detail.",
+      "gt": "noise",
+      "note": "Qualitative only: inspect whether noise is narrativized into objects (not auto-scored)"
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B1",
+      "type": "attribute",
+      "question": "What color is this? Answer with one word.",
+      "gt": "blue",
+      "note": "Flat steelblue field; basic color sanity check"
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B2",
+      "type": "existence",
+      "question": "Is there a sky in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Solid color must not be projected into a sky scene"
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C1",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Light noise on test.jpg; count should remain 1"
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Noisy office scene; keyboard context trap should stay negative"
+    },
+    {
+      "image": "geometric_circle.jpg",
+      "id": "D1",
+      "type": "existence",
+      "question": "Is this a drawing of an animal? Answer yes or no.",
+      "gt": "no",
+      "note": "Simple circle; checks sun/animal shape priors"
+    }
+  ],
+  "per_probe": [
+    {
+      "image": "pure_noise.jpg",
+      "id": "A1",
+      "type": "existence",
+      "question": "Is this a photograph of a real scene? Answer yes or no.",
+      "gt": "no",
+      "note": "Pure noise has no real scene; checks scene fabrication on zero semantics",
+      "answers": {
+        "llava_rlhf": "No. This is not a photograph of a real scene. It is a close-up of a colorful, abstract image that appears to be a computer-"
+      },
+      "correct": {
+        "llava_rlhf": true
+      },
+      "verdict": {
+        "llava_rlhf": "correct"
+      }
+    },
+    {
+      "image": "pure_noise.jpg",
+      "id": "A2",
+      "type": "qualitative",
+      "question": "Describe this image in detail.",
+      "gt": "noise",
+      "note": "Qualitative only: inspect whether noise is narrativized into objects (not auto-scored)",
+      "answers": {
+        "llava_rlhf": "The image is a close-up of a colorful, abstract pattern, which appears to be a blurry, multicolored photo. The pattern seems to be a combination of various colors and shapes, creating a visually striking and unique design. The close-up view of the image emphasizes the intricate details and textures of the pattern.\n\nThe colors in the image are vibrant and diverse, with hues ranging from dark shades to lighter tones. The abstract nature of the pattern suggests that it could be a representation of modern art or a creative design element. The image's"
+      },
+      "correct": {
+        "llava_rlhf": null
+      },
+      "verdict": {
+        "llava_rlhf": "qualitative"
+      }
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B1",
+      "type": "attribute",
+      "question": "What color is this? Answer with one word.",
+      "gt": "blue",
+      "note": "Flat steelblue field; basic color sanity check",
+      "answers": {
+        "llava_rlhf": "Blue"
+      },
+      "correct": {
+        "llava_rlhf": true
+      },
+      "verdict": {
+        "llava_rlhf": "correct"
+      }
+    },
+    {
+      "image": "solid_color.jpg",
+      "id": "B2",
+      "type": "existence",
+      "question": "Is there a sky in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Solid color must not be projected into a sky scene",
+      "answers": {
+        "llava_rlhf": "No"
+      },
+      "correct": {
+        "llava_rlhf": true
+      },
+      "verdict": {
+        "llava_rlhf": "correct"
+      }
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C1",
+      "type": "count",
+      "question": "How many tissue boxes are in this image? Answer with a number.",
+      "gt": "1",
+      "note": "Light noise on test.jpg; count should remain 1",
+      "answers": {
+        "llava_rlhf": "There are two tissue boxes in this image."
+      },
+      "correct": {
+        "llava_rlhf": false
+      },
+      "verdict": {
+        "llava_rlhf": "wrong"
+      }
+    },
+    {
+      "image": "test_noisy.jpg",
+      "id": "C2",
+      "type": "existence",
+      "question": "Is there a keyboard in this image? Answer yes or no.",
+      "gt": "no",
+      "note": "Noisy office scene; keyboard context trap should stay negative",
+      "answers": {
+        "llava_rlhf": "Yes, there is a keyboard in this image."
+      },
+      "correct": {
+        "llava_rlhf": false
+      },
+      "verdict": {
+        "llava_rlhf": "wrong"
+      }
+    },
+    {
+      "image": "geometric_circle.jpg",
+      "id": "D1",
+      "type": "existence",
+      "question": "Is this a drawing of an animal? Answer yes or no.",
+      "gt": "no",
+      "note": "Simple circle; checks sun/animal shape priors",
+      "answers": {
+        "llava_rlhf": "No"
+      },
+      "correct": {
+        "llava_rlhf": true
+      },
+      "verdict": {
+        "llava_rlhf": "correct"
+      }
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "scored_total": 6,
+    "by_model": {
+      "llava_rlhf": {
+        "correct": 4,
+        "wrong": 2,
+        "accuracy": 0.6667,
+        "qualitative_ids": [
+          "A2"
+        ],
+        "by_type": {
+          "existence": {
+            "correct": 3,
+            "wrong": 1
+          },
+          "attribute": {
+            "correct": 1,
+            "wrong": 0
+          },
+          "count": {
+            "correct": 0,
+            "wrong": 1
+          }
+        }
+      }
+    }
+  }
+}
