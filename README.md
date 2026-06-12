@@ -14,6 +14,6 @@ As this project heavily relies on the official model repositories, please follow
 
 2. Clone the official dependency repositories into the current directory:
    ```bash
-   git clone [https://github.com/haotian-liu/LLaVA.git](https://github.com/haotian-liu/LLaVA.git)
-   git clone [https://github.com/LLaVA-VL/LLaVA-RLHF.git](https://github.com/LLaVA-VL/LLaVA-RLHF.git)
+   git clone https://github.com/haotian-liu/LLaVA.git
+   git clone https://github.com/LLaVA-VL/LLaVA-RLHF.git
    ```
