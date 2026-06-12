@@ -10,3 +10,10 @@ As this project heavily relies on the official model repositories, please follow
    ```bash
    git clone https://github.com/zwang829/LLaVA_Probe_Based_Study.git
    cd LLaVA_Probe_Based_Study
+   ```
+
+2. Clone the official dependency repositories into the current directory:
+   ```bash
+   git clone [https://github.com/haotian-liu/LLaVA.git](https://github.com/haotian-liu/LLaVA.git)
+   git clone [https://github.com/LLaVA-VL/LLaVA-RLHF.git](https://github.com/LLaVA-VL/LLaVA-RLHF.git)
+   ```
